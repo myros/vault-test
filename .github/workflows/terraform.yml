@@ -3,10 +3,11 @@ run-name: ${{ github.actor }} is learning GitHub Actions
 on: [push]
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
+    permissions:
+        contents: read
+        id-token: write
     steps:
       - name: Login to Vault
         uses: hashicorp/vault-action@v2
