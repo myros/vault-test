@@ -64,7 +64,6 @@ jobs:
       run: terraform plan -input=false
       env:
         TF_VAR_vault_token: ${{ steps.grab-token.outputs.vault_token }}
-
       # On push to "main", build or change infrastructure according to Terraform configuration files
       # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
     - name: Terraform Apply
