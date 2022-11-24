@@ -36,12 +36,12 @@ jobs:
           echo $TOKEN_JSON | jq -r '.jwt | split(".") | .[1] | @base64d' | jq
           export VAULT_LOGIN_DATA=$(echo $TOKEN_JSON | curl -sSLf -X PUT -H "Content-Type: application/json" --data @- $VAULT_URL/v1/auth/jwt/login)
           export VAULT_TOKEN=$(echo $VAULT_LOGIN_DATA | jq -r .auth.client_token)
-          # echo $VAULT_TOKEN >> $GITHUB_OUTPUT
+          echo "vault_token=$(echo $VAULT_TOKEN)" >> $GITHUB_OUTPUT
       env:
         VAULT_ROLE: "myproject-staging"
         VAULT_URL: "https://vault.magserver.com"
         GITHUB_OIDC_TOKEN: ${{ steps.auth-token.outputs.token }}
-        
+
     # Checkout the repository to the GitHub Actions runner
     - name: Checkout
       uses: actions/checkout@v3
@@ -60,13 +60,13 @@ jobs:
     - name: Terraform Plan
       run: terraform plan -input=false
       env:
-        TF_VAR_vault_token: ${{ steps.grab-token.outputs.VAULT_TOKEN }}
+        TF_VAR_vault_token: ${{ steps.grab-token.outputs.vault_token }}
       # On push to "main", build or change infrastructure according to Terraform configuration files
       # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
     - name: Terraform Apply
       run: terraform apply -auto-approve -input=false
       env:
-        TF_VAR_vault_token: ${{ steps.grab-token.outputs.VAULT_TOKEN }}
+        TF_VAR_vault_token: ${{ steps.grab-token.outputs.vault_token }}
 
 # name: learn-github-actions
 # run-name: ${{ github.actor }} is learning GitHub Actions
