@@ -24,7 +24,7 @@ jobs:
             echo $TOKEN_JSON | jq -r '.jwt | split(".") | .[1] | @base64d' | jq
             echo $TOKEN_JSON | curl -sSLf -X PUT -H "Content-Type: application/json" --data @- $VAULT_URL/v1/auth/jwt/login
         env:
-          VAULT_ROLE: "github-admin-role"
+          VAULT_ROLE: "myproject-staging"
           VAULT_URL: "https://vault.magserver.com"
           GITHUB_OIDC_TOKEN: ${{ steps.auth-token.outputs.token }}
       - name: Login to Vault
