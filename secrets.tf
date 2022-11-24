@@ -16,7 +16,4 @@ resource "vault_token" "token" {
   renew_min_lease = 43200
   renew_increment = 86400
 
-  metadata = {
-    "purpose" = "service-account"
-  }
 }
