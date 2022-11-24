@@ -15,3 +15,9 @@ variable "vault_token" {
   // default     = 
   description = "Vault token with permissions"
 }
+
+variable "vault_token" {
+  type        = string
+  default     = "none"
+  description = "Vault token with permissions"
+}
