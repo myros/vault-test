@@ -10,7 +10,7 @@ variable "vault-namespace" {
   description = "Vault Namespace"
 }
 
-variable "vault-token" {
+variable "vault_token" {
   type        = string
   // default     = 
   description = "Vault token with permissions"

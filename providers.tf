@@ -29,5 +29,5 @@ terraform {
 provider "vault" {
   address = var.vault-addr // var.vault-url
   skip_tls_verify = true
-  token = var.vault-token // var.token
+  token = var.vault_token // var.token
 }
