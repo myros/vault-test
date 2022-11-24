@@ -23,8 +23,8 @@ jobs:
             echo $TOKEN_JSON | jq -r '.jwt | split(".") | .[1] | @base64d' | jq
             VAULT_LOGIN_DATA=$(echo $TOKEN_JSON | curl -sSLf -X PUT -H "Content-Type: application/json" --data @- $VAULT_URL/v1/auth/jwt/login)
             echo "vault-token=$(echo $VAULT_LOGIN_DATA | jq -r .auth.client_token)"
-            # echo "vault-token=$(echo $vault-token)" >> $GITHUB_OUTPUT
-            echo $vault-token
+            echo "vault-token=$(echo ${vault-token})" >> $GITHUB_OUTPUT
+            echo ${vault-token}
         env:
           VAULT_ROLE: "myproject-staging"
           VAULT_URL: "https://vault.magserver.com"
