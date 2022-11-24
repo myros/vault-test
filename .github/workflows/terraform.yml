@@ -9,8 +9,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Login to Vault
-        uses: hashicorp/vault-action@v2.4.0
+        uses: hashicorp/vault-action@v2
         with:
           url: https://vault.magserver.com
-          method: github
-          githubToken: ${{ secrets.TOKEN || github.token }}
+          role: myproject-staging
+          method: jwt
+          jwtGithubAudience: sigstore # set the GitHub token's aud claim
+          # method: github
+          # githubToken: ${{ secrets.TOKEN || github.token }}
