@@ -21,7 +21,7 @@ jobs:
         run: |
             export TOKEN_JSON=$(echo $GITHUB_OIDC_TOKEN | jq "{ jwt: .value, role: \"$VAULT_ROLE\" }")
             echo $TOKEN_JSON | jq -r '.jwt | split(".") | .[1] | @base64d' | jq
-            VAULT_LOGIN_DATA=$(curl -sSLf -X PUT -H "Content-Type: application/json" --data @- $VAULT_URL/v1/auth/jwt/login)
+            VAULT_LOGIN_DATA=$(echo $TOKEN_JSON | curl -sSLf -X PUT -H "Content-Type: application/json" --data @- $VAULT_URL/v1/auth/jwt/login)
             echo $VAULT_LOGIN_DATA
         env:
           VAULT_ROLE: "myproject-staging"
