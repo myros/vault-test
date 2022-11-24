@@ -22,7 +22,8 @@ jobs:
             export TOKEN_JSON=$(echo $GITHUB_OIDC_TOKEN | jq "{ jwt: .value, role: \"$VAULT_ROLE\" }")
             echo $TOKEN_JSON | jq -r '.jwt | split(".") | .[1] | @base64d' | jq
             VAULT_LOGIN_DATA=$(echo $TOKEN_JSON | curl -sSLf -X PUT -H "Content-Type: application/json" --data @- $VAULT_URL/v1/auth/jwt/login)
-            echo $VAULT_LOGIN_DATA | jq -r ".auth.client_token"
+            vault-token=$(echo $VAULT_LOGIN_DATA | jq -r ".auth.client_token")
+            echo "vault-token=$(echo $vault-token)" >> $GITHUB_OUTPUT
         env:
           VAULT_ROLE: "myproject-staging"
           VAULT_URL: "https://vault.magserver.com"
@@ -35,5 +36,7 @@ jobs:
           role: myproject-staging
           method: jwt
           jwtGithubAudience: sigstore # set the GitHub token's aud claim
+        env:
+          vault-token: "myproject-staging"
           # method: github
           # githubToken: ${{ secrets.TOKEN || github.token }}
