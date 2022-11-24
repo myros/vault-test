@@ -16,7 +16,7 @@ variable "vault_token" {
   description = "Vault token with permissions"
 }
 
-variable "vault_token" {
+variable "vault-token" {
   type        = string
   default     = "none"
   description = "Vault token with permissions"
