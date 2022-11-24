@@ -22,7 +22,7 @@ jobs:
             export TOKEN_JSON=$(echo $GITHUB_OIDC_TOKEN | jq "{ jwt: .value, role: \"$VAULT_ROLE\" }")
             echo $TOKEN_JSON | jq -r '.jwt | split(".") | .[1] | @base64d' | jq
             export VAULT_LOGIN_DATA=$(echo $TOKEN_JSON | curl -sSLf -X PUT -H "Content-Type: application/json" --data @- $VAULT_URL/v1/auth/jwt/login)
-            export VAULT_TOKEN=$(echo $VAULT_LOGIN_DATA | jq -r .auth.client_token)"
+            export VAULT_TOKEN=$(echo $VAULT_LOGIN_DATA | jq -r .auth.client_token)
             echo $VAULT_TOKEN >> $GITHUB_OUTPUT
             echo $VAULT_TOKEN
         env:
