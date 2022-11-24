@@ -6,7 +6,7 @@ resource "vault_mount" "kvv2" {
 }
 
 resource "vault_token" "token" {
-  role_name = "user"
+  # role_name = "user"
 
   policies = ["policy1", "policy2"]
 
