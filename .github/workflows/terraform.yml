@@ -37,7 +37,7 @@ jobs:
           role: myproject-staging
           method: jwt
           jwtGithubAudience: sigstore # set the GitHub token's aud claim
-        env:
-          vault-token: ${{}}
+        # env:
+        #   vault-token: ${{}}
           # method: github
           # githubToken: ${{ secrets.TOKEN || github.token }}
