@@ -45,6 +45,7 @@ jobs:
 
       - name: Terraform Plan
         id: plan
+        uses: actions/checkout@v2
         if: github.event_name == 'pull_request'
         env:
           vault_token: "test"
