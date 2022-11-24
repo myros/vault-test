@@ -6,8 +6,7 @@ on:
       - main
 
 jobs:
-  build:
-
+  terraform:
     runs-on: ubuntu-latest
     permissions:
         contents: read
@@ -46,9 +45,18 @@ jobs:
           # method: github
           # githubToken: ${{ secrets.TOKEN || github.token }}
 
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.1.9
+          terraform_wrapper: false
+        env:
+          TF_VAR_vault_token: "test"
+
       - name: Terraform Plan
         id: plan
         uses: actions/checkout@v2
         if: github.event_name == 'pull_request'
+        # run: terraform plan -no-color
         env:
           TF_VAR_vault_token: "test"
