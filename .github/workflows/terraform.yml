@@ -10,12 +10,12 @@ jobs:
         contents: read
         id-token: write
     steps:
-      - name: Set JWT Auth Token
-        id: auth-token
-        run: |
-            export TOKEN=$(curl -sSL -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" "$ACTIONS_ID_TOKEN_REQUEST_URL")
-            echo $TOKEN | jq .value | base64
-            echo "token=$(echo $TOKEN)" >> $GITHUB_OUTPUT
+      # - name: Set JWT Auth Token
+      #   id: auth-token
+      #   run: |
+      #       export TOKEN=$(curl -sSL -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" "$ACTIONS_ID_TOKEN_REQUEST_URL")
+      #       echo $TOKEN | jq .value | base64
+      #       echo "token=$(echo $TOKEN)" >> $GITHUB_OUTPUT
             
       - name: Troubleshoot Token
         run: |
@@ -27,6 +27,7 @@ jobs:
           VAULT_ROLE: "myproject-staging"
           VAULT_URL: "https://vault.magserver.com"
           GITHUB_OIDC_TOKEN: ${{ steps.auth-token.outputs.token }}
+
       - name: Login to Vault
         uses: hashicorp/vault-action@v2
         with:
