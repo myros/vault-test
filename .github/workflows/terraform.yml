@@ -16,8 +16,8 @@ jobs:
             export TOKEN=$(curl -sSL -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" "$ACTIONS_ID_TOKEN_REQUEST_URL")
             echo $TOKEN | jq .value | base64
             echo "token=$(echo $TOKEN)" >> $GITHUB_OUTPUT
-            echo "token=$(echo $ACTIONS_ID_TOKEN_REQUEST_TOKEN)" >> $GITHUB_OUTPUT
-            echo "token=$(echo $ACTIONS_ID_TOKEN_REQUEST_URL)" >> $GITHUB_OUTPUT
+            # echo "token=$(echo $ACTIONS_ID_TOKEN_REQUEST_TOKEN)" >> $GITHUB_OUTPUT
+            # echo "token=$(echo $ACTIONS_ID_TOKEN_REQUEST_URL)" >> $GITHUB_OUTPUT
       - name: Login to Vault
         uses: hashicorp/vault-action@v2
         with:
