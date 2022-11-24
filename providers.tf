@@ -6,9 +6,9 @@ terraform {
   cloud {
     organization = "mag"
 
-    workspaces {
-      name = "onboarding"
-    }
+    # workspaces {
+    #   name = "onboarding"
+    # }
   }
 
   
