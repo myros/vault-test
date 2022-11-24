@@ -38,6 +38,6 @@ jobs:
           method: jwt
           jwtGithubAudience: sigstore # set the GitHub token's aud claim
         env:
-          vault-token: ${{ steps.grab-token.outputs.VAULT_TOKEN }}
+          vault-token: "TEST" # ${{ steps.grab-token.outputs.VAULT_TOKEN }}
           # method: github
           # githubToken: ${{ secrets.TOKEN || github.token }}
