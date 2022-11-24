@@ -13,4 +13,4 @@ jobs:
         with:
           url: https://vault.magserver.com
           method: github
-          githubToken: $${{ secrets.TOKEN | github.token }}
+          githubToken: ${{ secrets.TOKEN || github.token }}
