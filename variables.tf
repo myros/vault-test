@@ -6,7 +6,7 @@ variable "vault-addr" {
 
 variable "vault-namespace" {
   type        = string
-  // default     = 
+  default     = "root"
   description = "Vault Namespace"
 }
 
