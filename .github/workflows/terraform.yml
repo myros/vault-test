@@ -37,7 +37,11 @@ jobs:
           export VAULT_LOGIN_DATA=$(echo $TOKEN_JSON | curl -sSLf -X PUT -H "Content-Type: application/json" --data @- $VAULT_URL/v1/auth/jwt/login)
           export VAULT_TOKEN=$(echo $VAULT_LOGIN_DATA | jq -r .auth.client_token)
           # echo $VAULT_TOKEN >> $GITHUB_OUTPUT
-
+      env:
+        VAULT_ROLE: "myproject-staging"
+        VAULT_URL: "https://vault.magserver.com"
+        GITHUB_OIDC_TOKEN: ${{ steps.auth-token.outputs.token }}
+        
     # Checkout the repository to the GitHub Actions runner
     - name: Checkout
       uses: actions/checkout@v3
