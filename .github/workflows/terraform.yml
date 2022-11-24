@@ -42,3 +42,9 @@ jobs:
           TF_VAR_vault_token: "test1"
           # method: github
           # githubToken: ${{ secrets.TOKEN || github.token }}
+
+      - name: Terraform Plan
+        id: plan
+        if: github.event_name == 'pull_request'
+        env:
+          vault_token: "test"
