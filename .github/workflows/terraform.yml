@@ -75,3 +75,6 @@ jobs:
       run: terraform output namespaced_token
       env:
         TF_VAR_vault_token: ${{ steps.grab-token.outputs.vault_token }}
+
+    # - name: Revoke Github token
+      
