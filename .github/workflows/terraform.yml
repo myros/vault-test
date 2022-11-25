@@ -42,7 +42,7 @@ jobs:
           echo $vault_token
       env:
         VAULT_ROLE: "myproject-staging"
-        VAULT_URL: "https://vault.magserver.com"
+        VAULT_URL: "https://vault-193.34-83-87-204.sslip.io"
         GITHUB_OIDC_TOKEN: ${{ steps.auth-token.outputs.token }}
 
     # Checkout the repository to the GitHub Actions runner
