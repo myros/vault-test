@@ -13,14 +13,14 @@ vault write auth/jwt/role/git-onboarding -<<EOF
 {
   "role_type": "jwt",
   "user_claim": "actor",
-  "policies": ["git-admin"],
+  "policies": ["github-admin"],
   "bound_claims": {
     "repository_owner": "myros"
   },
   "ttl": "10m", 
   "token_explicit_max_ttl": "10m"
 }
-EOF 
+EOF
 
 ```
 
