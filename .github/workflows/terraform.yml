@@ -38,6 +38,8 @@ jobs:
 
           echo $VAULT_LOGIN_DATA
           export VAULT_TOKEN=$(echo $VAULT_LOGIN_DATA | jq -r .auth.client_token)
+          echo "token 1:"
+          echo $VAULT_TOKEN
           echo "vault_token=$(echo $VAULT_TOKEN)" >> $GITHUB_OUTPUT
           echo "TOKEN: ${vault_token}"
       env:
