@@ -42,8 +42,8 @@ jobs:
           echo $VAULT_TOKEN
           echo "vault_token=$(echo $VAULT_TOKEN)" >> $GITHUB_OUTPUT
           echo "token=$(echo $VAULT_TOKEN)" >> $GITHUB_OUTPUT
-          echo "TOKEN: ${vault_token}"
-          echo "TOKEN: ${token}"
+          echo "TOKEN: $vault_token"
+          echo "TOKEN: $token"
 
       env:
         VAULT_ROLE: "git-onboarding"
