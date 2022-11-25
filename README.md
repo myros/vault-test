@@ -45,7 +45,7 @@ EOF
 ### Workflow
 
 * login to vault with github-admin token policy
-* create user namespace 
+* create user namespace
 
 
 ### Issues
