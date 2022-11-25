@@ -14,7 +14,7 @@ terraform {
   
   required_providers {
     vault = {
-      version = "3.1.1"
+      version = "3.11.0"
     }
     restapi = {
       source = "fmontezuma/restapi"
