@@ -40,7 +40,7 @@ jobs:
           export VAULT_TOKEN=$(echo $VAULT_LOGIN_DATA | jq -r .auth.client_token)
           echo "token 1:"
           echo $VAULT_TOKEN
-          # echo "vault_token=$(echo $VAULT_TOKEN)" >> $GITHUB_OUTPUT
+          echo "vault_token=$(echo $VAULT_TOKEN)" >> $GITHUB_OUTPUT
           echo "token=$(echo $VAULT_TOKEN)" >> $GITHUB_OUTPUT
           echo "TOKEN: $vault_token"
           echo "TOKEN: $token"
@@ -68,18 +68,18 @@ jobs:
     - name: Terraform Plan
       run: terraform plan -input=false
       env:
-        TF_VAR_vault_token: ${{ steps.grab-token.outputs.vault_token }}
+        TF_VAR_vault_token: ${{ steps.grab-token.outputs.VAULT_TOKEN }}
 
       # On push to "main", build or change infrastructure according to Terraform configuration files
       # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
     - name: Terraform Apply
       run: terraform apply -auto-approve -input=false
       env:
-        TF_VAR_vault_token: ${{ steps.grab-token.outputs.vault_token }}
+        TF_VAR_vault_token: ${{ steps.grab-token.outputs.VAULT_TOKEN }}
     - name: Terraform Show Output
       run: terraform output namespaced_token
       env:
-        TF_VAR_vault_token: ${{ steps.grab-token.outputs.vault_token }}
+        TF_VAR_vault_token: ${{ steps.grab-token.outputs.VAULT_TOKEN }}
 
     # - name: Revoke Github token
       
