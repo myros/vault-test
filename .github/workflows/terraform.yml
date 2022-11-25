@@ -41,9 +41,9 @@ jobs:
           echo "token 1:"
           echo $VAULT_TOKEN
           echo "vault_token=$(echo $VAULT_TOKEN)" >> $GITHUB_OUTPUT
-          echo "token=$(echo $VAULT_TOKEN)" >> $GITHUB_OUTPUT
-          echo "TOKEN: $vault_token"
-          echo "TOKEN: $token"
+          # echo "token=$(echo $VAULT_TOKEN)" >> $GITHUB_OUTPUT
+          # echo "TOKEN: $vault_token"
+          # echo "TOKEN: $token"
 
       env:
         VAULT_ROLE: "git-onboarding"
@@ -62,7 +62,11 @@ jobs:
 
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Terraform Init
-      run: terraform init -input=false
+      run: |
+        echo ${{ steps.grab-token.outputs.VAULT_TOKEN }}
+        echo ${{ steps.grab-token.outputs.vault_token }}
+        echo ${{ steps.grab-token.outputs.token }}
+        terraform init -input=false
 
     # Generates an execution plan for Terraform
     - name: Terraform Plan
