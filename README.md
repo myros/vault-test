@@ -15,12 +15,12 @@ vault write auth/jwt/role/git-onboarding -<<EOF
   "user_claim": "actor",
   "policies": ["git-admin"],
   "bound_claims": {
-    "ref_type": "branch",
+    "repository_owner": "myros"
   },
   "ttl": "10m", 
   "token_explicit_max_ttl": "10m"
-}                                              
-EOF
+}
+EOF 
 
 ```
 
