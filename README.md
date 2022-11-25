@@ -42,9 +42,34 @@ EOF
 ```
 
 
+### Workflow
+
+* login to vault with github-admin token policy
+* create user namespace 
+
+
 ### Issues
+
 
 * bound claim - connected to repo
 * git-admin policy
 * should be root ns => creating new namespace => enable engines & auth => ns admin token
 * github should log in to root namespace (regardless of user) and the problem is bound_claim
+
+### Links
+
+https://developer.hashicorp.com/vault/tutorials/recommended-patterns/pattern-policy-templates
+
+```
+path "sys/namespaces" {
+  capabilities = ["list"]
+}
+
+path "sys/namespaces/my-team" {
+  capabilities = ["list", "read"]
+}
+
+path "sys/namespaces/my-team/*" {
+  capabilities = ["create", "read", "update", "delete", "list", "sudo"]
+}
+```

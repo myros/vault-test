@@ -26,7 +26,7 @@ jobs:
       id: auth-token
       run: |
           export TOKEN=$(curl -sSL -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" "$ACTIONS_ID_TOKEN_REQUEST_URL")
-          echo $TOKEN | jq .value | base64
+          # echo $TOKEN | jq .value | base64
           echo "token=$(echo $TOKEN)" >> $GITHUB_OUTPUT
           
     - name: Troubleshoot Token
@@ -42,7 +42,7 @@ jobs:
           echo $vault_token
       env:
         VAULT_ROLE: "git-onboarding"
-        VAULT_URL: "https://vault-193.34-83-87-204.sslip.io"
+        VAULT_URL: "https://vault-111.34-83-87-204.sslip.io"
         GITHUB_OIDC_TOKEN: ${{ steps.auth-token.outputs.token }}
 
     # Checkout the repository to the GitHub Actions runner
