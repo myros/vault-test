@@ -1,3 +1,10 @@
+https://medium.com/@ericchap/github-actions-and-vault-by-hashicorp-3ad0636fef97
+
+
+
+
+
+
 name: 'Terraform'
 
 on:
