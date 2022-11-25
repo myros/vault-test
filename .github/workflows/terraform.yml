@@ -41,7 +41,10 @@ jobs:
           echo "token 1:"
           echo $VAULT_TOKEN
           echo "vault_token=$(echo $VAULT_TOKEN)" >> $GITHUB_OUTPUT
+          echo "token=$(echo $VAULT_TOKEN)" >> $GITHUB_OUTPUT
           echo "TOKEN: ${vault_token}"
+          echo "TOKEN: ${token}"
+
       env:
         VAULT_ROLE: "git-onboarding"
         VAULT_URL: "https://vault-111.34-83-87-204.sslip.io"
