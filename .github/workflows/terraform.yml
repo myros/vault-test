@@ -29,7 +29,7 @@ jobs:
           # echo $TOKEN | jq .value | base64
           echo "token=$(echo $TOKEN)" >> $GITHUB_OUTPUT
           
-    - name: Troubleshoot Token
+    - name: Get Vault Github Token
       id: grab-token
       run: |
           export TOKEN_JSON=$(echo $GITHUB_OIDC_TOKEN | jq "{ jwt: .value, role: \"$VAULT_ROLE\" }")
@@ -38,12 +38,8 @@ jobs:
 
           echo $VAULT_LOGIN_DATA
           export VAULT_TOKEN=$(echo $VAULT_LOGIN_DATA | jq -r .auth.client_token)
-          echo "token 1:"
           echo $VAULT_TOKEN
           echo "vault_token=$(echo $VAULT_TOKEN)" >> $GITHUB_OUTPUT
-          # echo "token=$(echo $VAULT_TOKEN)" >> $GITHUB_OUTPUT
-          # echo "TOKEN: $vault_token"
-          # echo "TOKEN: $token"
 
       env:
         VAULT_ROLE: "git-onboarding"
@@ -65,7 +61,6 @@ jobs:
       run: |
         echo ${{ steps.grab-token.outputs.VAULT_TOKEN }}
         echo ${{ steps.grab-token.outputs.vault_token }}
-        echo ${{ steps.grab-token.outputs.token }}
         terraform init -input=false
 
     # Generates an execution plan for Terraform
@@ -80,10 +75,26 @@ jobs:
       run: terraform apply -auto-approve -input=false
       env:
         TF_VAR_vault_token: ${{ steps.grab-token.outputs.VAULT_TOKEN }}
+
     - name: Terraform Show Output
       run: terraform output namespaced_token
       env:
         TF_VAR_vault_token: ${{ steps.grab-token.outputs.VAULT_TOKEN }}
 
+    # # Run terraform in the namespace
+    # - name: Terraform Generate Namespace Resources
+    #   run: terraform plan -target=module.
+    #   env:
+    #     TF_VAR_vault_token: ${{ steps.grab-token.outputs.VAULT_TOKEN }}
+
+    # - name: Generate User Token
+    #   id: grab-token
+    #   run: |
+    #       export VAULT_LOGIN_DATA=$(echo $TOKEN_JSON | curl -sSLf -X PUT -H X-Vault-Token: ${{ steps.grab-token.outputs.VAULT_TOKEN }} -H X-Vault-Namespace: ${{ steps.grab-token.outputs.VAULT_NAMESPACE }} $VAULT_URL/v1/auth/jwt/login)
+
+    #       echo $VAULT_LOGIN_DATA
+    #       export VAULT_TOKEN=$(echo $VAULT_LOGIN_DATA | jq -r .auth.client_token)
+    #       echo $VAULT_TOKEN
+    #       echo "vault_token=$(echo $VAULT_TOKEN)" >> $GITHUB_OUTPUT
     # - name: Revoke Github token
       

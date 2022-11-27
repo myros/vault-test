@@ -7,11 +7,11 @@ variable "vault_addr" {
 variable "vault_github_token" {
   type        = string
   // default     = 
-  description = "Vault token with permissions"
+  description = "Vault token with Github permissions"
 }
 
-variable "namespace_path" {
+variable "vault_namespace" {
   type        = string
-  // default     = 
-  description = "Vault namespace"
+  default     = "user"
+  description = "Vault user namespace"
 }

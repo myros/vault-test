@@ -10,7 +10,6 @@ terraform {
       name = "vault-test"
     }
   }
-
   
   required_providers {
     vault = {
@@ -19,15 +18,13 @@ terraform {
     restapi = {
       source = "fmontezuma/restapi"
     }
-    kubectl = {
-      source  = "gavinbunney/kubectl"
-      version = ">= 1.7.0"
-    }
   }
 }
 
 provider "vault" {
-  address = var.vault-addr // var.vault-url
+  address = var.vault_addr // var.vault-url
   skip_tls_verify = true
+  # skip_child_token = true
+
   token = var.vault_token // var.token
 }

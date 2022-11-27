@@ -44,9 +44,15 @@ EOF
 
 ### Workflow
 
-* login to vault with github-admin token policy
-* create user namespace
+#### Github admin
 
+* login to vault with github-admin token policy
+* create user namespace and admin policy for the namespace
+* revoke token
+
+#### User Namespace
+
+* execute namespace TF code
 
 ### Issues
 
@@ -72,4 +78,45 @@ path "sys/namespaces/my-team" {
 path "sys/namespaces/my-team/*" {
   capabilities = ["create", "read", "update", "delete", "list", "sudo"]
 }
+```
+
+
+```
+
+path "+/sys/namespaces/*" {
+  capabilities = ["create", "read", "update", "delete", "list", "sudo"]
+}
+path "+/+/sys/namespaces/*" {
+  capabilities = ["create", "read", "update", "delete", "list", "sudo"]
+}
+# Manage policies
+path "+/sys/policies/*" {
+  capabilities = ["create", "read", "update", "delete", "list", "sudo"]
+}
+path "+/+/sys/policies/*" {
+  capabilities = ["create", "read", "update", "delete", "list", "sudo"]
+}
+
+# List policies
+path "+/sys/policies/acl" {
+  capabilities = ["list"]
+}
+path "+/+/sys/policies/acl" {
+  capabilities = ["list"]
+}
+# Enable and manage secrets engines
+path "+/sys/mounts/*" {
+  capabilities = ["create", "read", "update", "delete", "list"]
+}
+path "+/+/sys/mounts/*" {
+  capabilities = ["create", "read", "update", "delete", "list"]
+}
+# List available secrets engines
+path "+/sys/mounts" {
+  capabilities = ["read"]
+}
+path "+/+/sys/mounts" {
+  capabilities = ["read"]
+}
+
 ```
