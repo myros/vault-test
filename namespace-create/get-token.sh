@@ -15,7 +15,7 @@ EOF
 
 # GRAB DATA FROM TERRAFORM QUERY BLOCK
 
-eval "$(jq -r '@sh "ADDR=\(.addr) TOKEN=\(.token)"')"
+eval "$(jq -r '@sh "ADDR=\(.addr) TOKEN=\(.token) NAMESPACE=\(.namespace)"')"
 
 # EXECUTE COMMAND 
 
