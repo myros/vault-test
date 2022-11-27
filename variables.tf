@@ -10,7 +10,7 @@ variable "vault_github_token" {
   description = "Vault token with permissions"
 }
 
-variable "namespace_path" {
+variable "vault_namespace" {
   type        = string
   // default     = 
   description = "Vault namespace"

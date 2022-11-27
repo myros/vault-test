@@ -68,6 +68,7 @@ jobs:
       run: terraform plan -input=false
       env:
         TF_VAR_vault_github_token: ${{ steps.grab-token.outputs.VAULT_TOKEN }}
+        TF_VAR_vault_namespace: "user1"
 
       # On push to "main", build or change infrastructure according to Terraform configuration files
       # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
@@ -75,11 +76,13 @@ jobs:
       run: terraform apply -auto-approve -input=false
       env:
         TF_VAR_vault_github_token: ${{ steps.grab-token.outputs.VAULT_TOKEN }}
+        TF_VAR_vault_namespace: "user1"
 
     - name: Terraform Show Output
       run: terraform output namespaced_token
       env:
         TF_VAR_vault_github_token: ${{ steps.grab-token.outputs.VAULT_TOKEN }}
+        TF_VAR_vault_namespace: "user1"
 
     # # Run terraform in the namespace
     # - name: Terraform Generate Namespace Resources
