@@ -34,10 +34,10 @@
 
 # }
 
-data "restapi_object" "vault_token" {
-    path = "/v1/auth/tokens/create"
-}
+# data "restapi_object" "vault_token" {
+#     path = "/v1/auth/tokens/create"
+# }
 
-output "token" {
-  value = restapi_object.vault_token
-}
+# output "token" {
+#   value = restapi_object.vault_token
+# }

@@ -6,7 +6,7 @@ resource "vault_namespace" "user_namespace" {
 resource "vault_policy" "admin_namespace_policy" {
   namespace = vault_namespace.user_namespace.path
   name   = "admin-policy"
-  policy = file("policies/admin-ns-policy.hcl")
+  policy = file("${path.module}/policies/admin-ns-policy.hcl")
 }
 
 # resource "vault_token" "token" {
@@ -38,7 +38,7 @@ data "external" "get_token" {
 
 data "local_file" "token" {
   filename = "${path.module}/response.json"
-  
+
   depends_on = [
     null_resource.get-token
   ]
