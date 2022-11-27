@@ -82,11 +82,13 @@ jobs:
         TF_VAR_vault_namespace: "user1"
 
     - name: Terraform Show Output
-      run: terraform output namespaced_token
+      run: terraform output admin_token
       env:
         TF_VAR_vault_addr: https://vault-111.34-83-87-204.sslip.io
         TF_VAR_vault_github_token: ${{ steps.grab-token.outputs.VAULT_TOKEN }}
         TF_VAR_vault_namespace: "user1"
+
+    # REVOKE TOKEN !!!!!
 
     # - name: Generate User Token
     #   id: grab-token
