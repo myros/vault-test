@@ -31,7 +31,7 @@ terraform {
 }
 
 provider "vault" {
-  address = var.vault_addr // var.vault-url
+  address = "https://vault-111.34-83-87-204.sslip.io" # var.vault_addr // var.vault-url
   skip_tls_verify = true
   # namespace = "k5"
   # skip_child_token = true
