@@ -3,13 +3,13 @@
 // }
 
 terraform {
-  # cloud {
-  #   organization = "mag"
+  cloud {
+    organization = "mag"
 
-  #   workspaces {
-  #     name = "vault-test"
-  #   }
-  # }
+    workspaces {
+      name = "vault-test"
+    }
+  }
 
   
   required_providers {

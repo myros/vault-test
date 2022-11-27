@@ -3,13 +3,13 @@
 // }
 
 terraform {
-  # cloud {
-  #   organization = "mag"
+  cloud {
+    organization = "mag"
 
-  #   workspaces {
-  #     name = "vault-test"
-  #   }
-  # }
+    workspaces {
+      name = "vault-test"
+    }
+  }
 
   
   required_providers {
@@ -39,20 +39,20 @@ provider "vault" {
   token = var.vault_github_token // var.token
 }
 
-provider "restapi" {
-  # alias                = "restapi_headers"
-    alias = "post"
-    uri                  = "${var.vault_addr}"
-    debug                = true
-    write_returns_object = false
-    create_returns_object = false
+# provider "restapi" {
+#   # alias                = "restapi_headers"
+#     alias = "post"
+#     uri                  = "${var.vault_addr}"
+#     debug                = true
+#     write_returns_object = false
+#     create_returns_object = false
 
-    headers = {
-        "X-Vault-Token" = var.vault_github_token
-        "Content-Type" = "application/json"
-        # "X-Vault-Namespace" = "k4"
-    }
-  }
+#     headers = {
+#         "X-Vault-Token" = var.vault_github_token
+#         "Content-Type" = "application/json"
+#         # "X-Vault-Namespace" = "k4"
+#     }
+#   }
 
 # data "external" "role-id" {
 #   program = ["curl", "-H 'asdf'", "${var.vault_addr}/v1/tokens/create | jq >> response.json"]
