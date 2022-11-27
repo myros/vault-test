@@ -84,12 +84,6 @@ jobs:
         TF_VAR_vault_github_token: ${{ steps.grab-token.outputs.VAULT_TOKEN }}
         TF_VAR_vault_namespace: "user1"
 
-    # # Run terraform in the namespace
-    # - name: Terraform Generate Namespace Resources
-    #   run: terraform plan -target=module.
-    #   env:
-    #     TF_VAR_vault_token: ${{ steps.grab-token.outputs.VAULT_TOKEN }}
-
     # - name: Generate User Token
     #   id: grab-token
     #   run: |

@@ -11,5 +11,5 @@ module "run_namespace" {
 
   vault_addr = var.vault_addr
   vault_namespace = var.vault_namespace
-  namespace_token = module.create_namespace.admin_token
+  vault_token = module.create_namespace.admin_token
 }
