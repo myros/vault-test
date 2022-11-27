@@ -2,3 +2,4 @@
 read.md
 
 .terraform
+.terraform.lock.hcl
