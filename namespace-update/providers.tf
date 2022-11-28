@@ -31,14 +31,13 @@ terraform {
 }
 
 provider "vault" {
-  address = var.vault_addr // var.vault-url
-  skip_tls_verify = true
-
+  address = var.vault_addr
+  token = var.vault_token
   namespace = var.vault_namespace
-  
+
+  skip_tls_verify = true
   # skip_child_token = true
 
-  token = var.vault_token // var.token
 }
 
 provider "restapi" {
