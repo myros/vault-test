@@ -34,6 +34,11 @@ data "external" "get_token" {
     token = var.vault_github_token
     namespace = var.vault_namespace
   }
+
+  depends_on = [
+    vault_namespace.user_namespace,
+    vault_policy.admin_namespace_policy
+  ]
 }
 
 # data "local_file" "token" {
