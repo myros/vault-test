@@ -97,11 +97,9 @@ jobs:
     # REVOKE GITHUB TOKEN !!!!!
     - name: Revoke Github Token
       run: |
-        curl -sSLf -X PUT -H "Content-Type: application/json" $VAULT_ADDR/v1/auth/token/revoke-self
+        curl -sSLf -X PUT -H "Content-Type: application/json" -H X-Vault-Token:${VAULT_TOKEN} $VAULT_ADDR/v1/auth/token/revoke-self
       env:
         VAULT_TOKEN: ${{ steps.grab-token.outputs.VAULT_TOKEN }}
-        # vault_namespace: $VAULT_NAMESPACE
-
 
     # - name: Generate User Token
     #   id: grab-token

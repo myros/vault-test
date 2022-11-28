@@ -1,14 +1,10 @@
-# resource "vault_namespace" "user" {
-#   path = var.namespace_path
-# }
-
-# resource "vault_mount" "kvv2" {
-#   namespace = vault_namespace.user.path
-#   path        = "kvv2"
-#   type        = "kv"
-#   options     = { version = "2" }
-#   description = "KV Version 2 secret engine mount"
-# }
+resource "vault_mount" "kvv2" {
+  namespace = vault_namespace.user.path
+  path        = "kvv2"
+  type        = "kv"
+  options     = { version = "2" }
+  description = "KV Version 2 secret engine mount"
+}
 
 # resource "vault_mount" "kvv3" {
 #   namespace = vault_namespace.user.path
