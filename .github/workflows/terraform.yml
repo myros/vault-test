@@ -10,7 +10,7 @@ permissions:
 
 env:
   VAULT_ADDR: "https://vault-111.34-83-87-204.sslip.io"
-  VAULT_NAMESPACE: "user3"
+  VAULT_NAMESPACE: "user1"
   
 jobs:
   terraform:
