@@ -35,7 +35,7 @@ provider "vault" {
   token = var.vault_github_token
 
   skip_tls_verify = true
-  # skip_child_token = true
+  skip_child_token = true
 }
 
 # provider "restapi" {
