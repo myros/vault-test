@@ -66,6 +66,47 @@ EOF
 
 https://developer.hashicorp.com/vault/tutorials/recommended-patterns/pattern-policy-templates
 
+
+# Read system health check
+path "sys/health"
+{
+  capabilities = ["read", "sudo"]
+}
+
+# Create and manage ACL policies broadly across Vault
+
+# List existing policies
+path "sys/policies/acl"
+{
+  capabilities = ["list"]
+}
+
+# Create and manage ACL policies
+path "sys/policies/acl/*"
+{
+  capabilities = ["create", "read", "update", "delete", "list", "sudo"]
+}
+
+# Enable and manage authentication methods broadly across Vault
+
+# Manage auth methods broadly across Vault
+path "auth/*"
+{
+  capabilities = ["create", "read", "update", "delete", "list", "sudo"]
+}
+
+# Create, update, and delete auth methods
+path "sys/auth/*"
+{
+  capabilities = ["create", "update", "delete", "sudo"]
+}
+
+# List auth methods
+path "sys/auth"
+{
+  capabilities = ["read"]
+}
+
 ```
 path "sys/namespaces" {
   capabilities = ["list"]
@@ -78,6 +119,12 @@ path "sys/namespaces/my-team" {
 path "sys/namespaces/my-team/*" {
   capabilities = ["create", "read", "update", "delete", "list", "sudo"]
 }
+
+# manage auth
+path "sys/auth/*" {
+  capabilities = ["create", "read", "update", "delete", "list", "sudo"]
+}
+
 ```
 
 
