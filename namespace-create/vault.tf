@@ -36,22 +36,22 @@ data "external" "get_token" {
   }
 }
 
-data "local_file" "token" {
-  filename = "${path.module}/response.json"
+# data "local_file" "token" {
+#   filename = "${path.module}/response.json"
 
-  depends_on = [
-    null_resource.get-token
-  ]
-}
+#   depends_on = [
+#     null_resource.get-token
+#   ]
+# }
 
-resource "null_resource" "get-token" {
-  triggers = {
-      always_run = "${timestamp()}"
-  }
-  provisioner "local-exec" {
-      command = "curl --location --request POST ${var.vault_addr}/v1/auth/token/create -H 'X-Vault-Token:${var.vault_github_token}' | jq -r .auth.client_token >response.json" 
-  }
-}
+# resource "null_resource" "get-token" {
+#   triggers = {
+#       always_run = "${timestamp()}"
+#   }
+#   provisioner "local-exec" {
+#       command = "curl --location --request POST ${var.vault_addr}/v1/auth/token/create -H 'X-Vault-Token:${var.vault_github_token}' | jq -r .auth.client_token >response.json" 
+#   }
+# }
 
 # resource "restapi_object" "vault_token" {
 #   provider = restapi.post
