@@ -65,11 +65,17 @@ jobs:
       run: |
         # echo ${{ steps.grab-token.outputs.VAULT_TOKEN }}
         # echo ${{ steps.grab-token.outputs.vault_token }}
+        
+        
+        
         terraform init -input=false
 
     # Generates an execution plan for Terraform
     - name: Terraform Plan
-      run: terraform plan -input=false
+      run: |
+        echo $VAULT_ADDR
+        echo $VAULT_NAMESPACE
+        terraform plan -input=false
       env:
         TF_VAR_vault_addr: $VAULT_ADDR
         TF_VAR_vault_github_token: ${{ steps.grab-token.outputs.VAULT_TOKEN }}
