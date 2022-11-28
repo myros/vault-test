@@ -84,7 +84,7 @@ jobs:
       env:
         TF_VAR_vault_addr: "https://vault-111.34-83-87-204.sslip.io"
         TF_VAR_vault_github_token: ${{ steps.grab-token.outputs.VAULT_TOKEN }}
-        TF_VAR_vault_namespace: $VAULT_NAMESPACE
+        TF_VAR_vault_namespace: ${{ $VAULT_NAMESPACE }}
         TF_LOG: debug
 
     - name: Terraform Show Output
@@ -92,7 +92,7 @@ jobs:
       env:
         TF_VAR_vault_addr: "https://vault-111.34-83-87-204.sslip.io"
         TF_VAR_vault_github_token: ${{ steps.grab-token.outputs.VAULT_TOKEN }}
-        TF_VAR_vault_namespace: $VAULT_NAMESPACE
+        TF_VAR_vault_namespace: ${{ $VAULT_NAMESPACE }}
 
     # REVOKE GITHUB TOKEN !!!!!
     - name: Revoke Github Token
