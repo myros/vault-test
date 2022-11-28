@@ -1,6 +1,8 @@
 # SECRET ZERO
 
 
+vault auth enable jwt 
+
 ```
 vault write auth/jwt/config \
                                      bound_issuer="https://token.actions.githubusercontent.com" \

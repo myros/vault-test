@@ -7,7 +7,7 @@ output "admin_token" {
 
 
   depends_on = [
-    external.get_token,
+    data.external.get_token,
     vault_namespace.user_namespace,
     vault_policy.admin_namespace_policy
   ]
