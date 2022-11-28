@@ -1,6 +1,6 @@
 variable "vault_addr" {
   type        = string
-  default     = "https://vault-111.34-83-87-204.sslip.io"
+  # default     = ""
   description = "Vault ADDR"
 }
 

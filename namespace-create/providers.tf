@@ -33,7 +33,7 @@ terraform {
 provider "vault" {
   address = var.vault_addr // var.vault-url
   skip_tls_verify = true
-  # namespace = "k5"
+
   # skip_child_token = true
 
   token = var.vault_github_token // var.token

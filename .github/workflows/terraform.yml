@@ -10,6 +10,10 @@ permissions:
 
 jobs:
   terraform:
+    env:
+      VAULT_ADDR: "https://vault-111.34-83-87-204.sslip.io"
+      VAULT_NAMESPACE: "user1"
+
     name: 'Terraform'
     runs-on: ubuntu-latest
     environment: production
@@ -34,7 +38,7 @@ jobs:
       run: |
           export TOKEN_JSON=$(echo $GITHUB_OIDC_TOKEN | jq "{ jwt: .value, role: \"$VAULT_ROLE\" }")
           # echo $TOKEN_JSON | jq -r '.jwt | split(".") | .[1] | @base64d' | jq
-          export VAULT_LOGIN_DATA=$(echo $TOKEN_JSON | curl -sSLf -X PUT -H "Content-Type: application/json" --data @- $VAULT_URL/v1/auth/jwt/login)
+          export VAULT_LOGIN_DATA=$(echo $TOKEN_JSON | curl -sSLf -X PUT -H "Content-Type: application/json" --data @- $VAULT_ADDR/v1/auth/jwt/login)
 
           echo $VAULT_LOGIN_DATA
           export VAULT_TOKEN=$(echo $VAULT_LOGIN_DATA | jq -r .auth.client_token)
@@ -43,7 +47,6 @@ jobs:
 
       env:
         VAULT_ROLE: "git-onboarding"
-        VAULT_URL: "https://vault-111.34-83-87-204.sslip.io"
         GITHUB_OIDC_TOKEN: ${{ steps.auth-token.outputs.token }}
 
     # Checkout the repository to the GitHub Actions runner
@@ -67,9 +70,9 @@ jobs:
     - name: Terraform Plan
       run: terraform plan -input=false
       env:
-        TF_VAR_vault_addr: https://vault-111.34-83-87-204.sslip.io
+        TF_VAR_vault_addr: $VAULT_ADDR
         TF_VAR_vault_github_token: ${{ steps.grab-token.outputs.VAULT_TOKEN }}
-        TF_VAR_vault_namespace: "user1"
+        TF_VAR_vault_namespace: $VAULT_NAMESPACE
         TF_log: debug
 
       # On push to "main", build or change infrastructure according to Terraform configuration files
@@ -77,23 +80,31 @@ jobs:
     - name: Terraform Apply
       run: terraform apply -auto-approve -input=false
       env:
-        TF_VAR_vault_addr: https://vault-111.34-83-87-204.sslip.io
+        TF_VAR_vault_addr: $VAULT_ADDR
         TF_VAR_vault_github_token: ${{ steps.grab-token.outputs.VAULT_TOKEN }}
-        TF_VAR_vault_namespace: "user1"
+        TF_VAR_vault_namespace: $VAULT_NAMESPACE
 
     - name: Terraform Show Output
       run: terraform output admin_token
       env:
-        TF_VAR_vault_addr: https://vault-111.34-83-87-204.sslip.io
+        TF_VAR_vault_addr: $VAULT_ADDR
         TF_VAR_vault_github_token: ${{ steps.grab-token.outputs.VAULT_TOKEN }}
-        TF_VAR_vault_namespace: "user1"
+        TF_VAR_vault_namespace: $VAULT_NAMESPACE
 
     # REVOKE GITHUB TOKEN !!!!!
+    - name: Revoke Github Token
+      run: |
+        curl -sSLf -X PUT -H "Content-Type: application/json" $VAULT_ADDR/v1/auth/token/revoke-self
+      env:
+        VAULT_ADDR: $VAULT_ADDR
+        VAULT_TOKEN: ${{ steps.grab-token.outputs.VAULT_TOKEN }}
+        # vault_namespace: $VAULT_NAMESPACE
+
 
     # - name: Generate User Token
     #   id: grab-token
     #   run: |
-    #       export VAULT_LOGIN_DATA=$(echo $TOKEN_JSON | curl -sSLf -X PUT -H X-Vault-Token: ${{ steps.grab-token.outputs.VAULT_TOKEN }} -H X-Vault-Namespace: ${{ steps.grab-token.outputs.VAULT_NAMESPACE }} $VAULT_URL/v1/auth/jwt/login)
+    #       export VAULT_LOGIN_DATA=$(echo $TOKEN_JSON | curl -sSLf -X PUT -H X-Vault-Token: ${{ steps.grab-token.outputs.VAULT_TOKEN }} -H X-Vault-Namespace: ${{ steps.grab-token.outputs.VAULT_NAMESPACE }} $VAULT_ADDR/v1/auth/jwt/login)
 
     #       echo $VAULT_LOGIN_DATA
     #       export VAULT_TOKEN=$(echo $VAULT_LOGIN_DATA | jq -r .auth.client_token)

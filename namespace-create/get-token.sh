@@ -6,9 +6,7 @@ generate_post_data()
   cat <<EOF
 {
     "policies": ["admin-policy"],
-    "ttl": "1h",
-    "renewable": true,
-    "no_default_policy": "true"
+    "orphan": "false"
 }
 EOF
 }

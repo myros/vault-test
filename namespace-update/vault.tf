@@ -1,23 +1,18 @@
-# resource "vault_namespace" "user" {
-#   path = var.namespace_path
-# }
+resource "vault_mount" "kvv2" {
+  namespace = vault_namespace.user.path
+  path        = "kvv2"
+  type        = "kv"
+  options     = { version = "2" }
+  description = "KV Version 2 secret engine mount"
+}
 
-# resource "vault_mount" "kvv2" {
-#   namespace = vault_namespace.user.path
-#   path        = "kvv2"
-#   type        = "kv"
-#   options     = { version = "2" }
-#   description = "KV Version 2 secret engine mount"
-# }
-
-# resource "vault_mount" "kvv3" {
-#   namespace = vault_namespace.user.path
-#   path        = "kvv3"
-#   type        = "kv"
-#   options     = { version = "2" }
-#   description = "KV Version 2 secret engine mount"
-# }
-
+resource "vault_mount" "kvv3" {
+  namespace = vault_namespace.user.path
+  path        = "kvv3"
+  type        = "kv"
+  options     = { version = "2" }
+  description = "KV Version 2 secret engine mount"
+}
 
 # resource "vault_token" "token" {
 #   # role_name = "user"
@@ -36,8 +31,4 @@
 
 # data "restapi_object" "vault_token" {
 #     path = "/v1/auth/tokens/create"
-# }
-
-# output "token" {
-#   value = restapi_object.vault_token
 # }
