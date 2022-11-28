@@ -87,6 +87,14 @@ jobs:
         TF_VAR_vault_namespace: ${{ env.VAULT_NAMESPACE }}
         TF_LOG: debug
 
+    - name: Terraform Apply
+      run: terraform apply -auto-approve -input=false -target=module.create_namespace
+      env:
+        TF_VAR_vault_github_token: ${{ steps.grab-token.outputs.VAULT_TOKEN }}
+        TF_VAR_vault_addr: ${{ env.VAULT_ADDR }}
+        TF_VAR_vault_namespace: ${{ env.VAULT_NAMESPACE }}
+        TF_LOG: debug
+
     - name: Terraform Show Output
       run: terraform output admin_token
       env:
