@@ -6,14 +6,13 @@ resource "vault_mount" "kvv2" {
   description = "KV Version 2 secret engine mount"
 }
 
-# resource "vault_mount" "kvv3" {
-#   namespace = vault_namespace.user.path
-#   path        = "kvv3"
-#   type        = "kv"
-#   options     = { version = "2" }
-#   description = "KV Version 2 secret engine mount"
-# }
-
+resource "vault_mount" "kvv3" {
+  namespace = var.vault_namespace
+  path        = "kvv3"
+  type        = "kv"
+  options     = { version = "2" }
+  description = "KV Version 2 secret engine mount"
+}
 
 # resource "vault_token" "token" {
 #   # role_name = "user"
