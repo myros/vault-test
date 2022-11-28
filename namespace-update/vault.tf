@@ -1,5 +1,5 @@
 resource "vault_mount" "kvv2" {
-  namespace = vault_namespace.user.path
+  namespace = var.vault_namespace
   path        = "kvv2"
   type        = "kv"
   options     = { version = "2" }
