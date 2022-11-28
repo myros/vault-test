@@ -1,5 +1,5 @@
 resource "vault_mount" "kvv2" {
-  namespace = vault_namespace.user.path
+  namespace = var.vault_namespace
   path        = "kvv2"
   type        = "kv"
   options     = { version = "2" }
@@ -7,7 +7,7 @@ resource "vault_mount" "kvv2" {
 }
 
 resource "vault_mount" "kvv3" {
-  namespace = vault_namespace.user.path
+  namespace = var.vault_namespace
   path        = "kvv3"
   type        = "kv"
   options     = { version = "2" }
@@ -16,7 +16,7 @@ resource "vault_mount" "kvv3" {
 
 # resource "vault_token" "token" {
 #   # role_name = "user"
-#   namespace = "k5" # vault_namespace.user.path
+#   namespace = "k5" # var.vault_namespace
 
 #   # policies = [vault_policy.admin_namespace_policy.name]
 #   no_default_policy = true
