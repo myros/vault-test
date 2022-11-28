@@ -13,7 +13,8 @@ EOF
 
 # GRAB DATA FROM TERRAFORM QUERY BLOCK
 
-eval "$(jq -r '@sh "ADDR=\(.addr) TOKEN=\(.token) NAMESPACE=\(.namespace)"')"
+# eval "$(jq -r '@sh "ADDR=\(.addr) TOKEN=\(.token) NAMESPACE=\(.namespace)"')"
+eval "$(jq -r '@sh "ADDR=\(.addr) TOKEN=\(.token)"')"
 
 # EXECUTE COMMAND 
 
