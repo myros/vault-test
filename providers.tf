@@ -13,7 +13,8 @@ terraform {
 }
 
 provider "vault" {
-  
+  alias = "github_vault"
+
   address = var.vault_addr
   token = var.vault_github_token
 

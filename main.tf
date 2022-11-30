@@ -4,6 +4,10 @@ module "create_namespace" {
   vault_addr = var.vault_addr
   vault_namespace = var.vault_namespace
   vault_github_token = var.vault_github_token
+
+  providers = {
+    vault = vault.github_vault
+  } 
 }
 
 module "update_namespace" {

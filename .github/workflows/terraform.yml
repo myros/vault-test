@@ -9,7 +9,7 @@ permissions:
   contents: read
 
 env:
-  VAULT_ADDR: "https://vault-111.34-83-87-204.sslip.io"
+  # VAULT_ADDR: "https://vault-111.34-83-87-204.sslip.io"
   VAULT_NAMESPACE: "user1"
   
 jobs:
@@ -45,6 +45,15 @@ jobs:
           export VAULT_TOKEN=$(echo $VAULT_LOGIN_DATA | jq -r .auth.client_token)
           echo $VAULT_TOKEN
           echo "vault_token=$(echo $VAULT_TOKEN)" >> $GITHUB_OUTPUT
+
+      env:
+        VAULT_ROLE: "git-onboarding"
+        GITHUB_OIDC_TOKEN: ${{ steps.auth-token.outputs.token }}
+
+    - name: Get Vault Github Token
+      id: grab-token
+      run: |
+          export VAULT_LOGIN_DATA=$(echo $TOKEN_JSON | curl -sSLf -X PUT -H "Content-Type: application/json" --data @- $VAULT_ADDR/v1/auth/jwt/login)
 
       env:
         VAULT_ROLE: "git-onboarding"
