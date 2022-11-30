@@ -54,53 +54,53 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v3
 
-    # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
-    - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v1
-      with:
-        cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+    # # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
+    # - name: Setup Terraform
+    #   uses: hashicorp/setup-terraform@v1
+    #   with:
+    #     cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
-    # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
-    - name: Terraform Init
-      run: |
-        terraform init -input=false
-
-    # Generates an execution plan for Terraform
-    # - name: Terraform Plan
+    # # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
+    # - name: Terraform Init
     #   run: |
-    #     echo $VAULT_ADDR
-    #     echo $VAULT_NAMESPACE
-    #     terraform plan -input=false
+    #     terraform init -input=false
+
+    # # Generates an execution plan for Terraform
+    # # - name: Terraform Plan
+    # #   run: |
+    # #     echo $VAULT_ADDR
+    # #     echo $VAULT_NAMESPACE
+    # #     terraform plan -input=false
+    # #   env:
+    # #     TF_VAR_vault_github_token: ${{ steps.grab-token.outputs.VAULT_TOKEN }}
+    # #     TF_VAR_vault_addr: ${{ env.VAULT_ADDR }}
+    # #     TF_VAR_vault_namespace: ${{ env.VAULT_NAMESPACE }}
+    # #     TF_LOG: debug
+
+    #   # On push to "main", build or change infrastructure according to Terraform configuration files
+    #   # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
+    # - name: Terraform Apply
+    #   run: terraform apply -auto-approve -input=false -target=module.create_namespace
     #   env:
     #     TF_VAR_vault_github_token: ${{ steps.grab-token.outputs.VAULT_TOKEN }}
     #     TF_VAR_vault_addr: ${{ env.VAULT_ADDR }}
     #     TF_VAR_vault_namespace: ${{ env.VAULT_NAMESPACE }}
     #     TF_LOG: debug
 
-      # On push to "main", build or change infrastructure according to Terraform configuration files
-      # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
-    - name: Terraform Apply
-      run: terraform apply -auto-approve -input=false -target=module.create_namespace
-      env:
-        TF_VAR_vault_github_token: ${{ steps.grab-token.outputs.VAULT_TOKEN }}
-        TF_VAR_vault_addr: ${{ env.VAULT_ADDR }}
-        TF_VAR_vault_namespace: ${{ env.VAULT_NAMESPACE }}
-        TF_LOG: debug
+    # - name: Terraform Apply
+    #   run: terraform apply -auto-approve -input=false
+    #   env:
+    #     TF_VAR_vault_github_token: ${{ steps.grab-token.outputs.VAULT_TOKEN }}
+    #     TF_VAR_vault_addr: ${{ env.VAULT_ADDR }}
+    #     TF_VAR_vault_namespace: ${{ env.VAULT_NAMESPACE }}
+    #     TF_LOG: debug
 
-    - name: Terraform Apply
-      run: terraform apply -auto-approve -input=false
-      env:
-        TF_VAR_vault_github_token: ${{ steps.grab-token.outputs.VAULT_TOKEN }}
-        TF_VAR_vault_addr: ${{ env.VAULT_ADDR }}
-        TF_VAR_vault_namespace: ${{ env.VAULT_NAMESPACE }}
-        TF_LOG: debug
-
-    - name: Terraform Show Output
-      run: terraform output admin_token
-      env:
-        TF_VAR_vault_github_token: ${{ steps.grab-token.outputs.VAULT_TOKEN }}
-        TF_VAR_vault_addr: ${{ env.VAULT_ADDR }}
-        TF_VAR_vault_namespace: ${{ env.VAULT_NAMESPACE }}
+    # - name: Terraform Show Output
+    #   run: terraform output admin_token
+    #   env:
+    #     TF_VAR_vault_github_token: ${{ steps.grab-token.outputs.VAULT_TOKEN }}
+    #     TF_VAR_vault_addr: ${{ env.VAULT_ADDR }}
+    #     TF_VAR_vault_namespace: ${{ env.VAULT_NAMESPACE }}
 
     # REVOKE GITHUB TOKEN !!!!!
     - name: Revoke Github Token
