@@ -23,7 +23,8 @@ jobs:
         uses: hashicorp/vault-action@v2.4.0
         with:
           exportToken: true
-          method: jwt-github
+          method: jwt
+          path: github
           url: https://a3b9-184-144-40-103.ngrok.io
           namespace: "root"
           role: "test-10"
