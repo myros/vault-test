@@ -26,7 +26,7 @@ jobs:
           path: jwt-github
           url: https://a3b9-184-144-40-103.ngrok.io
           namespace: "root"
-          role: "vault-test-10"
+          role: "vault-test-570210047"
           secrets: |
             secrets/data/github foo | FOO ;
             secrets/data/github zig | ZIG
