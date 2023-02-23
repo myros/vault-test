@@ -29,8 +29,8 @@ jobs:
           namespace: "root"
           role: "vault-test-10"
           secrets: |
-            secret/data/ci/aws foo | FOO ;
-            secret/data/ci/aws zig | ZIG
+            secret/data/github foo | FOO ;
+            secret/data/github zig | ZIG
 
       - name: Use secret from Vault
         run: "echo '${{ steps.secrets.outputs.foo }}'" 
