@@ -24,7 +24,7 @@ jobs:
         with:
           exportToken: true
           method: jwt
-          path: github
+          path: jwt-github
           url: https://a3b9-184-144-40-103.ngrok.io
           namespace: "root"
           role: "test-10"
